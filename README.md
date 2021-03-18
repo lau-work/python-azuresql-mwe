@@ -34,7 +34,22 @@ Create the virtualenv, copy the .env file and install the python packages:
     cd python-azuresql-mwe
     mkvirtualenv azure-sql-mwe
     python3 -m pip install -r requirements.txt
+
+Create a .env file with the configuration of your Azure SQL db:
     cp .env.example .env
+    nano .env
+
+In this file, update the variables to have the correct values:
+
+    AZURE_AZURE_SQL_DATABASE="DBNAME"
+    AZURE_SQL_USER="USERNAME"
+    AZURE_SQL_PASSWORD="PASSWORD"
+    AZURE_SQL_HOST="domain.com"
+    AZURE_SQL_PORT="1433"
+    AZURE_SQL_DRIVER="ODBC Driver 17 for SQL Server"
+
+Initialize the database:
+
     python3 ./djangoazuresql/manage.py makemigrations
     python3 ./djangoazuresql/manage.py migrate
 
