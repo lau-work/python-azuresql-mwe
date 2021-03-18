@@ -60,4 +60,24 @@ Run the application using the following commands:
     workon azure-sql-mwe
     python3 ./djangoazuresql/manage.py runserver
 
+
 Navigate to http://127.0.0.1:8000
+
+3. Deploy to Azure
+
+Install the Azure-cli tooling:
+
+Add your proxy's certificate to Azure-cli's cacert bundle:
+
+    sudo cp /opt/az/lib/python3.6/site-packages/certifi/cacert.pem /opt/az/lib/python3.6/site-packages/certifi/cacert.pem.original
+    echo -e "# My Proxy Proxy Cert\n# Installed on $(date +'%Y-%m-%d')" > /tmp/my_proxy_cert.pem
+    cat "${path_to_proxy_cert}" >> /tmp/my_proxy_cert.pem
+    sudo bash -c "cat /tmp/my_proxy_cert.pem >> /opt/az/lib/python3.6/site-packages/certifi/cacert.pem"
+
+Log in to Azure with az:
+    az login
+    az account set -s "NAME OF YOUR SUBSCRIPTION"
+
+Publish the Web App:
+    
+    az webapp up --resource-group "NAME OF YOUR RESOURCE GROUP" --sku B1 --name "NAME OF YOUR APP SERVICE"
